@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0367cdfa3c53d643a02812b09d4cb98, type: 3}
+  m_Name: macuahuitl
+  m_EditorClassIdentifier: 
+  name: Macuahuitl
+  description: L'arme des guerriers jaguars
+  icon: {fileID: 21300000, guid: 762d4704c046e5d49a0109ecd8849c3d, type: 3}
+  prefab: {fileID: 5454915366652159786, guid: 052112386b776e345b69c56106d7c399, type: 3}
+  magSize: 0
+  magCount: 0
+  range: 5
+  fireRate: 2
+  type: 2
+  slot: 2

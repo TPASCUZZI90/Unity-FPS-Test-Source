@@ -16,7 +16,8 @@ MonoBehaviour:
   description: Pistolet Belge
   icon: {fileID: 21300000, guid: fe9b547f10440634492385979b14209d, type: 3}
   prefab: {fileID: 3366242569358461489, guid: 76465317a3046a544a70085463ca476e, type: 3}
-  particle: {fileID: 330440455129007291, guid: 734884e61d43755499df766bb11dc899, type: 3}
+  muzzleParticle: {fileID: 330440455129007291, guid: 734884e61d43755499df766bb11dc899, type: 3}
+  shootParticle: {fileID: 1803236314038241267, guid: be5523e3be3dc994f943a3863b938e22, type: 3}
   magSize: 20
   storedAmmo: 60
   range: 50

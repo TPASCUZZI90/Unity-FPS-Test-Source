@@ -11,6 +11,9 @@ public class WeaponShooting : MonoBehaviour
     private Inventory inventory;
     private EquipmentManager manager;
     private AudioSource son;
+    private PlayerHUD playerHUD;
+
+    private Animator anim;
 
     [SerializeField] private bool canShoot;
 
@@ -34,6 +37,21 @@ public class WeaponShooting : MonoBehaviour
             son = GetComponentInChildren<AudioSource>();
             Shoot();
         }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            Reload(manager.currentlyEquippedWeapon);
+        }
+    }
+
+    private void GetReferences()
+    {
+
+        cam = GetComponentInChildren<Camera>();
+        inventory = GetComponent<Inventory>();
+        manager = GetComponent<EquipmentManager>();
+        anim = GetComponentInChildren<Animator>();
+        playerHUD = GetComponent<PlayerHUD>();
     }
 
     private void RaycastShoot(Weapon currentWeapon)
@@ -46,7 +64,9 @@ public class WeaponShooting : MonoBehaviour
         {
             Debug.Log(hit.transform.name);
         }
-        Instantiate(currentWeapon.particle, manager.currentWeaponBarrel);
+        Instantiate(currentWeapon.muzzleParticle, manager.currentWeaponBarrel);
+        GameObject shootParticle = Instantiate(currentWeapon.shootParticle, manager.currentWeaponBarrel);
+        shootParticle.transform.parent = null;
         son.Play();
     }
 
@@ -88,6 +108,7 @@ public class WeaponShooting : MonoBehaviour
             else {
                 primaryAmmoMag -= currentAmmoUsed;
                 primaryAmmoStorage -= currentStoredAmmoUsed;
+                playerHUD.UpdateWeaponAmmoUI(primaryAmmoMag, primaryAmmoStorage);
             }
             
         }
@@ -103,10 +124,10 @@ public class WeaponShooting : MonoBehaviour
             {
                 secondaryAmmoMag -= currentAmmoUsed;
                 secondaryAmmoStorage -= currentStoredAmmoUsed;
+                playerHUD.UpdateWeaponAmmoUI(secondaryAmmoMag, secondaryAmmoStorage);
             }
         }
     }
-
     private void CheckCanShoot(int slot)
     {   
         if(slot == 0)
@@ -134,12 +155,67 @@ public class WeaponShooting : MonoBehaviour
         }
     }
 
-    private void GetReferences()
+    private void AddAmmo(int slot, int currentAmmoAdded, int currentStoredAmmoAdded)
     {
-        
-        cam = GetComponentInChildren<Camera>();
-        inventory = GetComponent<Inventory>(); 
-        manager = GetComponent<EquipmentManager>();
+        if (slot == 0)
+        {
+            primaryAmmoMag += currentAmmoAdded;
+            primaryAmmoStorage -= currentStoredAmmoAdded;
+            playerHUD.UpdateWeaponAmmoUI(primaryAmmoMag,primaryAmmoStorage);
+
+        }
+
+        if (slot == 1)
+        {
+            secondaryAmmoMag += currentAmmoAdded;
+            secondaryAmmoStorage -= currentStoredAmmoAdded;
+            playerHUD.UpdateWeaponAmmoUI(secondaryAmmoMag, secondaryAmmoStorage);
+        }
+    }
+
+    private void Reload(int slot)
+    {
+        // primary
+        if(slot == 0)
+        {
+            int ammoToReload = inventory.GetItem(0).magSize - primaryAmmoMag;
+            if((primaryAmmoMag != inventory.GetItem(0).magSize) && (primaryAmmoStorage >= ammoToReload)) // Pour remplir le chargeur entièrement
+            {
+                AddAmmo(slot, ammoToReload, 0); // Pour remplir le chargeur
+                UseAmmo(slot, 0, ammoToReload); // Pour Updater l'UI
+
+                primaryMagEmpty = false; // Le chargeur n'est plus vide
+            } else
+            {
+                if((primaryAmmoMag + primaryAmmoStorage) < inventory.GetItem(0).magSize)// Pas assez en stock pour remplir tout le chargeur mais au moins 1 munition en stock
+                {
+                    Debug.Log("pas assez pour remplir tout le chargeur mais au moins 1 balle");
+                    AddAmmo(slot, primaryAmmoStorage, 0); // Pour remplir le chargeur
+                    UseAmmo(slot, 0, primaryAmmoStorage); // Pour Updater l'UI
+                }
+                Debug.Log("pas assez de munitions en stock");
+            }
+        }
+        // secondary
+        if(slot == 1)
+        {
+            int ammoToReload = inventory.GetItem(1).magSize - secondaryAmmoMag;
+            if ((secondaryAmmoMag != inventory.GetItem(1).magSize) && (secondaryAmmoStorage >= ammoToReload))
+            {
+                AddAmmo(slot, ammoToReload, 0);
+                UseAmmo(slot, 0, ammoToReload);
+
+                secondaryMagEmpty = false;
+            }
+            else
+            {
+                Debug.Log("pas assez de munitions en stock");
+            }
+        }
+
+        CheckCanShoot(slot);
+        anim.SetTrigger("reload");
+        manager.currentWeaponAnim.SetTrigger("reload");
     }
 
     public void InitAmmo(int slot, Weapon weapon)

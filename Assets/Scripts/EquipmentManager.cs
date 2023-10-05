@@ -13,6 +13,7 @@ public class EquipmentManager : MonoBehaviour
     private Animator animate;
     private Inventory inventory;
     private PlayerHUD hud;
+    public Animator currentWeaponAnim;
 
     [SerializeField] Weapon defaultWeapon = null;
 
@@ -50,6 +51,7 @@ public class EquipmentManager : MonoBehaviour
     {
         currentlyEquippedWeapon = (int)weapon.slot;
         animate.SetInteger("GunType", (int)weapon.type);
+        
         hud.UpdateWeaponUI(weapon);
         
     }

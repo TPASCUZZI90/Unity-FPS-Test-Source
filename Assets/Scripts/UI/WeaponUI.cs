@@ -16,4 +16,10 @@ public class WeaponUI : MonoBehaviour
         magSizeText.SetText(magSize.ToString());
         storedAmmoText.SetText(storedAmmo.ToString());
     }
+
+    public void UpdateAmmoUI(int magSize, int storedAmmo)
+    {
+        magSizeText.SetText(magSize.ToString());
+        storedAmmoText.SetText(storedAmmo.ToString());
+    }
 }

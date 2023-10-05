@@ -16,7 +16,8 @@ MonoBehaviour:
   description: Pistolet mitrailleur Allemand
   icon: {fileID: 21300000, guid: 3f9dd3a65fd6b3846ae8ea513e2eb6bf, type: 3}
   prefab: {fileID: 5259404580581630725, guid: 6a551c501f297cc459c3aaa72e0dfbea, type: 3}
-  particle: {fileID: 5875649632851254530, guid: f298027aeaabfc842b4f8b8a1039ffd6, type: 3}
+  muzzleParticle: {fileID: 1052609207401440291, guid: 5aea709264c1d4a45a20d84db1026e02, type: 3}
+  shootParticle: {fileID: 1803236314038241267, guid: be5523e3be3dc994f943a3863b938e22, type: 3}
   magSize: 30
   storedAmmo: 90
   range: 75

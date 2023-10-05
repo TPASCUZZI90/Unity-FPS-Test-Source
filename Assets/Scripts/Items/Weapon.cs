@@ -7,7 +7,8 @@ using UnityEngine;
 public class Weapon : Item
 {
     public GameObject prefab;
-    public GameObject particle;
+    public GameObject muzzleParticle;
+    public GameObject shootParticle;
     public int magSize;
     public int storedAmmo;
     public float range;

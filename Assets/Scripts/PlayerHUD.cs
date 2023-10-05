@@ -30,4 +30,9 @@ public class PlayerHUD : MonoBehaviour
     {
         weaponUI.UpdateInfo(newWeapon.icon, newWeapon.magSize, newWeapon.storedAmmo);
     }
+
+    public void UpdateWeaponAmmoUI(int currentAmmo, int storedAmmo)
+    {
+        weaponUI.UpdateAmmoUI(currentAmmo, storedAmmo);
+    }
 }

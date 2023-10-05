@@ -16,7 +16,8 @@ MonoBehaviour:
   description: "Un b\xE2ton qui crache le feu des enfers"
   icon: {fileID: 21300000, guid: 5082884822d4d904386d10616d806dba, type: 3}
   prefab: {fileID: 4307290547070733985, guid: bb152486910fac74db3abe015c1f17df, type: 3}
-  particle: {fileID: 3750902266347642231, guid: 47f86c2b8a0957a4fadbfc30713a597d, type: 3}
+  muzzleParticle: {fileID: 3750902266347642231, guid: 47f86c2b8a0957a4fadbfc30713a597d, type: 3}
+  shootParticle: {fileID: 1803236314038241267, guid: be5523e3be3dc994f943a3863b938e22, type: 3}
   magSize: 1
   storedAmmo: 10
   range: 50
